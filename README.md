@@ -1,1 +1,1 @@
-Authors: Kyle Helsing, Geoffery Dodd, Matthew Gay, Alex Coleman
+Authors: Kyle Helsing, Geoffrey Dodd, Matthew Gay, Alex Coleman
