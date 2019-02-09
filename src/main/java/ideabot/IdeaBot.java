@@ -46,15 +46,15 @@ import java.io.File;
 public class IdeaBot extends Application {
 
     static final int NOUN_FILE_SIZE = 189;
-    static  final int ADJ_FILE_SIZE = 998;
-    static File adjFile = new File("adjectives.txt");
-    static File nounFile = new File("csnouns.txt");
-
+    static final int ADJ_FILE_SIZE = 998;
+    static File adjFile = new File("src/main/java/ideabot/adjectives.txt");
+    static File nounFile = new File("src/main/java/ideabot/csnouns.txt");
+    
     
     public static String[][] getPairs(){
 	//the array to hold the pairs and their indexes to return
 	String[][] pairs = new String[20][4];
-	
+       
 	try{		    
 	    for(int loop = 0; loop < 20; loop++){
                 //initialize scanners to search the .txt files
@@ -70,13 +70,13 @@ public class IdeaBot extends Application {
 		    adjFinder.nextLine();
 		} //for
 		String adj = adjFinder.nextLine();
-
+		
 		//find the noun in the .txt file
 		for(int i = 0; i < randNoun; i++){
 		    nounFinder.nextLine();
 		} //for
 		String noun = nounFinder.nextLine();
-
+		
 		//assigns the words and their line number to the pairs array
 		    for(int j = 0; j < 4; j++){
 			switch(j){
@@ -90,8 +90,8 @@ public class IdeaBot extends Application {
 			    break;
 			} //switch
 		    } //for
-
-		adjFinder.close();
+		    
+		    adjFinder.close();
 		nounFinder.close();
 	    } //for	    
 	}
@@ -100,9 +100,8 @@ public class IdeaBot extends Application {
 	} //catch
 	return pairs;
     } //getPairs
-
-
     
+    String[][] arr = getPairs();
     //main method
     @Override
     public void start(Stage stage) {
@@ -111,6 +110,8 @@ public class IdeaBot extends Application {
     private void initUI(Stage stage){
 	//main panel
 	BorderPane root = new BorderPane();
+	Label idea = new Label("Your New Idea Here...");
+	idea.setStyle("-fx-font-family: \"Comic Sans MS\"; -fx-font-size: 30; -fx-text-fill: white;");
 	VBox center = new VBox();
 	center.setAlignment(Pos.CENTER);
 	center.setBackground(new Background(new BackgroundFill(Color.rgb((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255), .99), CornerRadii.EMPTY, Insets.EMPTY)));
@@ -124,6 +125,8 @@ public class IdeaBot extends Application {
 	good.setOnAction(new EventHandler<ActionEvent>(){
 		public void handle (ActionEvent t) {
 		    center.setBackground(new Background(new BackgroundFill(Color.rgb((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255), .99), CornerRadii.EMPTY, Insets.EMPTY)));
+		    int i = (int)(Math.random()*20);
+		    idea.setText(arr[i][0] + " " + arr[i][1]);
 		} // handle
 	    });
 	Button bad = new Button("That's Dumb!");
@@ -142,8 +145,6 @@ public class IdeaBot extends Application {
 	    });
 	Label title = new Label("Your new \"one in a billion\" idea is:");
 	title.setStyle("-fx-font-family: \"Comic Sans MS\"; -fx-font-size: 20; -fx-text-fill: darkred;");
-	Label idea = new Label("Your New Idea Here...");
-	idea.setStyle("-fx-font-family: \"Comic Sans MS\"; -fx-font-size: 30; -fx-text-fill: white;");
 	top.getChildren().addAll(title);
 	root.setTop(top);
 	bottom.getChildren().addAll(bad, new Separator(), okay, new Separator(), good);
