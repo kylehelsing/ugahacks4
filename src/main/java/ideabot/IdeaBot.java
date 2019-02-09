@@ -30,16 +30,13 @@ import javafx.util.Duration;
 import javafx.animation.Timeline;
 import javafx.stage.Modality;
 import java.util.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import java.io.InputStreamReader;
-import java.net.URLEncoder;
-import java.net.URL;
-import java.io.BufferedReader;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonArray;
+import javafx.geometry.Pos;
+import javafx.scene.paint.Color;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.geometry.Insets;
+
 /**
  * An App that diplays a random idea
  *
@@ -49,9 +46,74 @@ public class IdeaBot extends Application {
   //main method
     @Override
     public void start(Stage stage) {
-          stage.sizeToScene();
-          stage.show();
-    } // handle
+	initUI(stage);
+    } // start
+    private void initUI(Stage stage){
+	//main panel
+	BorderPane root = new BorderPane();
+	VBox center = new VBox();
+	center.setAlignment(Pos.CENTER);
+	center.setBackground(new Background(new BackgroundFill(Color.rgb((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255), .99), CornerRadii.EMPTY, Insets.EMPTY)));
+	HBox top = new HBox();
+	top.setAlignment(Pos.CENTER);
+	HBox bottom = new HBox();
+	bottom.setPadding(new Insets(10.0));
+	bottom.setAlignment(Pos.CENTER);
+	Button good = new Button("I Love It!");
+	good.setStyle("-fx-font-size: 2em; -fx-background-color: lightgreen;");
+	good.setOnAction(new EventHandler<ActionEvent>(){
+		public void handle (ActionEvent t) {
+		    center.setBackground(new Background(new BackgroundFill(Color.rgb((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255), .99), CornerRadii.EMPTY, Insets.EMPTY)));
+		} // handle
+	    });
+	Button bad = new Button("That's Dumb!");
+	bad.setStyle("-fx-font-size: 2em; -fx-background-color: red;");
+	bad.setOnAction(new EventHandler<ActionEvent>(){
+		public void handle (ActionEvent t) {
+		    center.setBackground(new Background(new BackgroundFill(Color.rgb((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255), .99), CornerRadii.EMPTY, Insets.EMPTY)));
+		} // handle
+	    });
+	Button okay = new Button("Good Words, Bad Combo!");
+	okay.setStyle("-fx-font-size: 2em; -fx-background-color: orange;");
+	okay.setOnAction(new EventHandler<ActionEvent>(){
+		public void handle (ActionEvent t) {
+		    center.setBackground(new Background(new BackgroundFill(Color.rgb((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255), .99), CornerRadii.EMPTY, Insets.EMPTY)));
+		} // handle
+	    });
+	Label title = new Label("Your new \"one in a billion\" idea is:");
+	title.setStyle("-fx-font-family: \"Comic Sans MS\"; -fx-font-size: 20; -fx-text-fill: darkred;");
+	Label idea = new Label("Your New Idea Here...");
+	idea.setStyle("-fx-font-family: \"Comic Sans MS\"; -fx-font-size: 30; -fx-text-fill: white;");
+	top.getChildren().addAll(title);
+	root.setTop(top);
+	bottom.getChildren().addAll(bad, new Separator(), okay, new Separator(), good);
+	root.setBottom(bottom);
+	center.getChildren().addAll(idea);
+	
+
+
+
+
+
+	root.setCenter(center);
+	root.setMaxWidth(800);
+        root.setMaxHeight(460);
+        root.setMinWidth(800);
+        root.setMinHeight(460);
+	//final stuff
+	Scene scene = new Scene(root);
+	stage.setMaxWidth(800);
+	stage.setMaxHeight(485);
+	stage.setMinWidth(800);
+	stage.setMinHeight(485);
+	stage.setTitle("Idea Bot!");
+	stage.setScene(scene);
+	stage.sizeToScene();
+	stage.show();
+	
+    } //initUI
+    
+
     public static void main(String[] args) {
       try {
         Application.launch(args);
