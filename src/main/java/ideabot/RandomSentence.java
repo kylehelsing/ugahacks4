@@ -2,46 +2,69 @@ import java.util.Scanner;
 import java.io.File;
 
 public class RandomSentence{
-    public static void main(String[] args){
-	File adjFile = new File("adjectives.txt");
-	File nounFile = new File("nouns.txt");
-	Scanner input = new Scanner(System.in);
-	boolean again = false;
 
+    static final int NOUN_FILE_SIZE = 189;
+    static  final int ADJ_FILE_SIZE = 998;
+    static File adjFile = new File("adjectives.txt");
+    static File nounFile = new File("csnouns.txt");
+
+    
+    public static String[][] getPairs(){
+	//the array to hold the pairs and their indexes to return
+	String[][] pairs = new String[20][4];
 	
 	try{		    
-	    do{
-		again = false;
+	    for(int loop = 0; loop < 20; loop++){
+                //initialize scanners to search the .txt files
 		Scanner adjFinder = new Scanner(adjFile);
 		Scanner nounFinder = new Scanner(nounFile);
-		
-		int randAdj = (int)(Math.random() * 998);	    
-		int randNoun = (int)(Math.random() * 998);
-		
+
+		//randomly generate the adjective and noun lines
+		int randAdj = (int)(Math.random() * ADJ_FILE_SIZE);	    
+		int randNoun = (int)(Math.random() * NOUN_FILE_SIZE);
+
+		//find the adjective in the .txt file
 		for(int i = 0; i < randAdj; i++){
 		    adjFinder.nextLine();
 		} //for
-		String adj = adjFinder.next();
-		String adj2 = adjFinder.next();
+		String adj = adjFinder.nextLine();
+
+		//find the noun in the .txt file
 		for(int i = 0; i < randNoun; i++){
 		    nounFinder.nextLine();
 		} //for
-		String noun = nounFinder.next();
-		String noun2 = nounFinder.next();
-		System.out.println(adj + " " + noun + ": " + adj2 + " for your " + noun2);
+		String noun = nounFinder.nextLine();
 
-		System.out.print("Do you want another idea? ");
-		String next =  input.next();
-		if(next.equalsIgnoreCase("yes") || next.equalsIgnoreCase("y")) 
-		    again = true;
-		
+		//assigns the words and their line number to the pairs array
+		    for(int j = 0; j < 4; j++){
+			switch(j){
+			case 0: pairs[loop][j] = adj;
+			    break;
+			case 1: pairs[loop][j] = noun;
+			    break;
+			case 2: pairs[loop][j] = String.valueOf(randAdj + 1);
+			    break;
+			case 3: pairs[loop][j] = String.valueOf(randNoun + 1);
+			    break;
+			} //switch
+		    } //for
+
 		adjFinder.close();
 		nounFinder.close();
-	    } while(again);
-	    
+	    } //for	    
 	}
 	catch(Exception e){
 	    e.printStackTrace();
 	} //catch
+	return pairs;
+    } //getPairs
+
+    public static void main(String[] args){
+	String pairs[][] = getPairs();
+	for(int i = 0; i < 20; i++){
+	    System.out.println(pairs[i][0] + " " + pairs[i][1] + ", " + pairs[i][2] + " " + pairs[i][3]);
+	} //for
+	
     } //main
+    
 }
