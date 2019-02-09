@@ -30,335 +30,103 @@ import javafx.util.Duration;
 import javafx.animation.Timeline;
 import javafx.stage.Modality;
 import java.util.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import java.io.InputStreamReader;
-import java.net.URLEncoder;
-import java.net.URL;
-import java.io.BufferedReader;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonArray;
+import javafx.geometry.Pos;
+import javafx.scene.paint.Color;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.geometry.Insets;
+
 /**
- * An App that diplays a gallery of 20 images based on user search results from Itunes Library.
+ * An App that diplays a random idea
  *
  * @author Kyle Helsing
  */
-public class GalleryApp extends Application {
-    //declaring ProgressBar and lists used for storing urls and images
-    ProgressBar bar;
-    ArrayList<Image> notUsed;
-    ArrayList<Image> used;
-    ArrayList<String> urls;
-    /**
-     * Fills the image Lists with the inital search results of "rock"
-     */
-    public void fill(){
-  used = new ArrayList<Image>();
-  notUsed = new ArrayList<Image>();
-  //fill list of extra pictures
-  for (int i = 20; i < urls.size(); i++)
-      notUsed.add(new Image(urls.get(i), 100, 100, true, true));
-  //fill list of pictures to be displayed
-  for (int i = 0; i < 20; i++){
-      used.add(new Image(urls.get(i), 100, 100, true, true));
-      bar.setProgress(((i+1)*(0.1)*4)+.2);
-  }
-    } //fill
-    /**
-     * Creates a url that is used to download search results from the Itunes Library into an ArrayList that is returned
-     *
-     * @param search a string that is the term to be searched on the Itunes Library
-     *
-     * @return urlsFound an ArrayList of all urls found in the Itunes library
-     */
-    public static ArrayList<String> query(String search){
-  ArrayList<String> urlsFound = new ArrayList<String>();
-  String encodedString = null;
-  URL url;
-  try{
-      //encode the search string
-      encodedString = URLEncoder.encode(search,"UTF-8");
-  }catch(java.io.UnsupportedEncodingException e){
-      System.out.println("broke");
-      System.exit(0);
-  } // try
-  if(encodedString != null){
-      try{
-    //create url
-    url = new URL(null, "http://itunes.apple.com/search?term=" + encodedString);
-    InputStreamReader reader = new InputStreamReader(url.openStream());
-    JsonParser jp = new JsonParser();
-    JsonElement je = jp.parse(reader);
-    JsonObject root = je.getAsJsonObject();                      // root of response
-    JsonArray results = root.getAsJsonArray("results");          // "results" array
-    int numResults = results.size();                             // "results" array size
-    for (int i = 0; i < numResults; i++) {
-        JsonObject result = results.get(i).getAsJsonObject();    // object i in array
-        JsonElement artworkUrl100 = result.get("artworkUrl100"); // artworkUrl100 member
-        if (artworkUrl100 != null) {                             // member might not exist
-      String artUrl = artworkUrl100.getAsString();        // get member as string
-      urlsFound.add(artUrl);                                  // add to list of URLS
-        } // if
-    } // for
-      }catch(Exception e){
-    System.out.println("Something went wrong");
-      } // try
-  } // if
-  return urlsFound;
-    } // query
-
-    /**
-     * Sets up the stage and layout of the application
-     *
-     * @param stage the main stage of the application
-     */
+public class IdeaBot extends Application {
+  //main method
     @Override
     public void start(Stage stage) {
-  bar = new ProgressBar(0);
-  BorderPane pane = new BorderPane();
-  GridPane center = new GridPane();
-  ToolBar toolBar = new ToolBar();
-  HBox menuBar = new HBox();
-  HBox bottom = new HBox();
-  VBox top = new VBox();
-  //set initial search to rock
-  urls = query("rock");
-  //initially fill gallery
-  fill();
-  //create nodes for menu
-  final MenuButton menu1 = new MenuButton("File");
-  final MenuButton menu2 = new MenuButton("Themes");
-  final Button menu3 = new Button("Help");
-  //set action for help button
-  menu3.setOnAction(new EventHandler<ActionEvent>() {
-    public void handle(ActionEvent t) {
-        //create new window
-        Stage stage = new Stage();
-        VBox pane = new VBox();
-        //add picture of myself
-        ImageView portrait = new ImageView(new Image("https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAgHAAAAJDQ0YjQzNDNkLTlhOTctNDFmNC1hNDNjLTgyZWMzNjc1MWE0Zg.jpg", 199, 199, true, true));
-        //add name, email, and version #
-        Text name = new Text("Kyle Benjamin Helsing");
-        Text email = new Text("kylehelsing@gmail.com");
-        Text version = new Text("Version 1.0");
-        pane.getChildren().addAll(portrait, name, email, version);
-        Scene scene = new Scene(pane);
-        stage.setMaxWidth(199);
-        stage.setMaxHeight(249);
-        stage.setMinWidth(199);
-        stage.setMinHeight(249);
-        //set to Application Modal
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("About Kyle");
-        stage.setScene(scene);
-        stage.sizeToScene();
-        stage.show();
-    } // handle
-      });
-  //create exit item for file menu
-  MenuItem exitItem = new MenuItem("Exit");
-  exitItem.setOnAction(new EventHandler<ActionEvent>(){
-        public void handle (ActionEvent t) {
-            Platform.exit();
-            System.exit(0);
-        } // handle
-      });
-  menu1.getItems().add(exitItem);
-  //create light theme
-  MenuItem lightTheme = new MenuItem("Light");
-  lightTheme.setOnAction(new EventHandler<ActionEvent>(){
-    public void handle (ActionEvent t) {
-        //implement light theme
-        center.setStyle("-fx-background-color: white;");
-        top.setStyle("-fx-background-color: white;");
-        toolBar.setStyle("-fx-background-color: white;");
-        bottom.setStyle("-fx-background-color: white;");
-    }
-      });
-  //create dark theme
-  MenuItem darkTheme = new MenuItem("Dark");
-  darkTheme.setOnAction(new EventHandler<ActionEvent>(){
-    public void handle (ActionEvent t) {
-        //implement dark theme
-        center.setStyle("-fx-background-color: black;");
-        top.setStyle("-fx-background-color: black;");
-        toolBar.setStyle("-fx-background-color: darkgrey;");
-        bottom.setStyle("-fx-background-color: darkgrey;");
-    }
-      });
-  //create UGA theme
-  MenuItem ugaTheme = new MenuItem("UGA");
-  ugaTheme.setOnAction(new EventHandler<ActionEvent>(){
-    public void handle (ActionEvent t) {
-        //implement UGA theme
-        center.setStyle("-fx-background-color: black;");
-        top.setStyle("-fx-background-color: black;");
-        toolBar.setStyle("-fx-background-color: red;");
-        bottom.setStyle("-fx-background-color: red;");
-    }
-      });
-  menu2.getItems().addAll(lightTheme, darkTheme, ugaTheme);
-  //add menus to menubar
-  menuBar.getChildren().addAll(menu1, menu2, menu3);
-  //create objects for toolbar
-  Button play = new Button("Play");
-  Separator line = new Separator();
-  Text query = new Text("Search Query: ");
-  TextField search = new TextField("rock");
-  Button update = new Button("Update Images");
-  //create eventHandler for cylcing through images
-  EventHandler<ActionEvent> cycle =  event -> {
-      Thread t = new Thread(() -> {
-        //get random indexes from both lists of images
-        int inPics = (int)(Math.random()*20);
-        int inStorage = (int)(Math.random()*notUsed.size());
-        //switch the two randomly selected images
-        Image temp = notUsed.get(inStorage);
-        notUsed.set(inStorage, used.get(inPics));
-        used.set(inPics, temp);
-        //display the image
-        Platform.runLater(() -> {
-          ImageView tempImage =  (ImageView)center.getChildren().get(inPics);
-          tempImage.setImage(temp);
-      });
-    });
-      t.start();
-  };
-  //create KeyFrame to manage execution of cycling
-  KeyFrame keyFrame = new KeyFrame(Duration.seconds(2), cycle);
-  Timeline timeline = new Timeline();
-  timeline.setCycleCount(Timeline.INDEFINITE);
-  timeline.getKeyFrames().add(keyFrame);
-  //set action for play/pause button
-  play.setOnAction(e -> {
-    //switch the text of button
-    if (play.getText().equals("Play")){
-        play.setText("Pause");
-        //start cycling
-        timeline.play();
-    } // if
-    else{
-        play.setText("Play");
-        //pause cycling
-        timeline.pause();
-    } // else
-      });
-  //set action when update button is clicked
-  update.setOnAction(e -> {
-    //get urls for new query based on textField
-    ArrayList<String> urls = query(search.getText());
-    //if not enough results
-    if (urls.size() < 20){
-        //create and display error message
-        Stage newStage = new Stage();
-        VBox newPane = new VBox();
-        ImageView x = new ImageView(new Image("http://clipart-library.com/image_gallery/419310.png", 50, 50, true, true));
-        Text error1 = new Text("Error: less than 20 images were");
-        Text error2 = new Text("gathered, cannot display.");
-        Button exit = new Button("OK");
-        exit.setOnAction(q -> {
-          newStage.hide();
-      });
-        newPane.getChildren().addAll(x, error1, error2, exit);
-        Scene scene = new Scene(newPane);
-        newStage.setMaxWidth(210);
-        newStage.setMaxHeight(110);
-        newStage.setMinWidth(210);
-        newStage.setMinHeight(110);
-        newStage.initModality(Modality.APPLICATION_MODAL);
-        newStage.setTitle("Error");
-        newStage.setScene(scene);
-        newStage.sizeToScene();
-        newStage.show();
-    } //if
-    //if there are enough results
-    else{
-        //pause cycling
-        timeline.pause();
-        //reset progress bar
-        bar.setProgress(0);
-        //switch button to play state if it is paused
-        if (play.getText().equals("Play"))
-      play.setText("Pause");
-        //set progress bar 20% for finding urls
-        bar.setProgress(.2);
-        Thread t = new Thread(() -> {
-          //clear image lists
-          notUsed.clear();
-          used.clear();
-          //refill lists based on new urls
-          for (int i = 20; i < urls.size(); i++)
-        notUsed.add(new Image(urls.get(i), 100, 100, true, true));
-          for (int i = 0; i < 20; i++)
-        used.add(new Image(urls.get(i), 100, 100, true, true));
-          Platform.runLater(() -> {
-            //replace all images dispalyed with new results
-            for (int i = 0; i < 20; i++){
-          ImageView tempImage =  (ImageView)center.getChildren().get(i);
-          tempImage.setImage(used.get(i));
-          //update progress bar with every image added
-          bar.setProgress(((i+1)*(0.1)*4)+.2);
-            }
-            //start cycling
-            timeline.play();
-        });
-      });
-        t.start();
-    } //else
-      });
-  //add items to toolbar
-  toolBar.getItems().addAll(play, new Separator(), query, search, update);
-  //add menuBar and toolbar to top of borderpane
-  top.getChildren().addAll(menuBar, toolBar);
-  pane.setTop(top);
-  //for copyright reasons
-  Text itunes = new Text("Images provided courtesy of Itunes");
-  //add progressbar and copyright to bottom of borderpane
-  bottom.getChildren().addAll(bar, new Separator(),itunes);
-  pane.setBottom(bottom);
-  //set 0 gap for images in the center
-  center.setHgap(0);
-  center.setVgap(0);
-  //add rows and columns of images to Gridpane
-  int place = 0;
-  for (int i = 0; i < 4; i++){
-      for (int j = 0; j < 5; j++){
-    center.add(new ImageView(new Image(urls.get(place), 100, 100, true, true)), j, i);
-    place++;
-      }
-  }
-  //add and set Gridpane to center of borderpane
-  pane.setCenter(center);
-  //create and show scene
-  Scene scene = new Scene(pane);
-  stage.setMaxWidth(500);
-  stage.setMaxHeight(485);
-  stage.setMinWidth(500);
-  stage.setMinHeight(485);
-        stage.setTitle("Gallery!");
-        stage.setScene(scene);
-  stage.sizeToScene();
-        stage.show();
+	initUI(stage);
     } // start
-    /**
-     * Launches the application and catches errors caused by X server connection.
-     *
-     * @param args an array of strings used as arguments that can be used by the program
-     */
-    public static void main(String[] args) {
-  try {
-      Application.launch(args);
+    private void initUI(Stage stage){
+	String theme = "hipster";
+	//main panel
+	BorderPane root = new BorderPane();
+	VBox center = new VBox();
+	center.setAlignment(Pos.CENTER);
+	center.setBackground(new Background(new BackgroundFill(Color.rgb((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255), .99), CornerRadii.EMPTY, Insets.EMPTY)));
+	HBox top = new HBox();
+	top.setAlignment(Pos.CENTER);
+	HBox bottom = new HBox();
+	bottom.setPadding(new Insets(10.0));
+	bottom.setAlignment(Pos.CENTER);
+	Button good = new Button("I Love It!");
+	good.setStyle("-fx-font-size: 2em; -fx-background-color: lightgreen;");
+	good.setOnAction(new EventHandler<ActionEvent>(){
+		public void handle (ActionEvent t) {
+		    center.setBackground(new Background(new BackgroundFill(Color.rgb((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255), .99), CornerRadii.EMPTY, Insets.EMPTY)));
+		} // handle
+	    });
+	Button bad = new Button("That's Dumb!");
+	bad.setStyle("-fx-font-size: 2em; -fx-background-color: red;");
+	bad.setOnAction(new EventHandler<ActionEvent>(){
+		public void handle (ActionEvent t) {
+		    center.setBackground(new Background(new BackgroundFill(Color.rgb((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255), .99), CornerRadii.EMPTY, Insets.EMPTY)));
+		} // handle
+	    });
+	Button okay = new Button("Good Words, Bad Combo!");
+	okay.setStyle("-fx-font-size: 2em; -fx-background-color: orange;");
+	okay.setOnAction(new EventHandler<ActionEvent>(){
+		public void handle (ActionEvent t) {
+		    center.setBackground(new Background(new BackgroundFill(Color.rgb((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255), .99), CornerRadii.EMPTY, Insets.EMPTY)));
+		} // handle
+	    });
+	Label title = new Label("Your new hipster idea is:");
+	title.setStyle("-fx-font-family: \"Comic Sans MS\"; -fx-font-size: 20; -fx-text-fill: darkred;");
+	Label idea = new Label("Your New Idea Here...");
+	idea.setStyle("-fx-font-family: \"Comic Sans MS\"; -fx-font-size: 30; -fx-text-fill: white;");
+	top.getChildren().addAll(title);
+	root.setTop(top);
+	bottom.getChildren().addAll(bad, new Separator(), okay, new Separator(), good);
+	root.setBottom(bottom);
+	center.getChildren().addAll(idea);
+	
 
-  } catch (UnsupportedOperationException e) {
-      System.out.println(e);
-      System.err.println("If this is a DISPLAY problem, then your X server connection");
-      System.err.println("has likely timed out. This can generally be fixed by logging");
-      System.err.println("out and logging back in.");
-      System.exit(1);
-  } // try
+
+
+
+
+	root.setCenter(center);
+	root.setMaxWidth(800);
+        root.setMaxHeight(460);
+        root.setMinWidth(800);
+        root.setMinHeight(460);
+	//final stuff
+	Scene scene = new Scene(root);
+	stage.setMaxWidth(800);
+	stage.setMaxHeight(485);
+	stage.setMinWidth(800);
+	stage.setMinHeight(485);
+	stage.setTitle("Idea Bot!");
+	stage.setScene(scene);
+	stage.sizeToScene();
+	stage.show();
+	
+    } //initUI
+    
+
+    public static void main(String[] args) {
+      try {
+        Application.launch(args);
+
+      } catch (UnsupportedOperationException e) {
+        System.out.println(e);
+        System.err.println("If this is a DISPLAY problem, then your X server connection");
+        System.err.println("has likely timed out. This can generally be fixed by logging");
+        System.err.println("out and logging back in.");
+        System.exit(1);
+      } // try
     } // main
 
-} // GalleryApp
+} // IdeaBot
 
