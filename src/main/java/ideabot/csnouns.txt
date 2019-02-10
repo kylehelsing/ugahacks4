@@ -1,191 +1,191 @@
-Adobe
-Acrobat
-Address
-Algorithm
-AMD
-Android
-API
-Apple
-Applications
-Boot
-binary
-BIOS
-bitcoin
-byte
-Botnet
-Browser
-CPU
-Content Delivery Network
-Check Disk
-Cisco
-Cloud
-client
-CSS
-C++
-C#
-Chrome
-Computer
-data
-database
-Debian
-desktop
-dialer
-digital
-document
-disk operating system
-download
-Electronic Numerical Integrator and Calculator
-electricity
-email
-email attachment
-Encarta encyclopedia
-Epiphany web browser
-End User License Agreement
-Explorer
-filesystem
-File allocation
-file
-file types by ending
-filesharing
-filesystem
-firewall
-folder
-footnotes
-format
-FreeBSD
-freeware
-Facebook
-gigabyte
-Gimp
-Gmail
-Gnome
-Google
-GNU
-GnuPG
-GPU
-Google Homehacker
-hard disk
-hardware
-Hash_function
-HDMI
-home page
-HTML
-HTTP
-HTTP_Cookie
-Intel
-Icons
-Input device
-Java
-JavaScript
-J#
-KDE*
-kernel
-keyboard
-key
-keyword
-laptop
-licensing examples for computer software
-link
-Linux
-Lavasoft
-live cd
-Macintosh
-Mac OS
-Mac OS X
-Malware
-Mandrake Linux
-Martus
-md5
-media
-megabyte
-Microsoft
-modified database
-modified IDE
-modified window
-monitor
-Motherboard
-mouse
-Mozilla web browser
-Mozilla Firefox web browser
-Modem
-mp4
-mpeg-4
-NTFS filesystem type
-Netscape
-Netscape Navigator web browser
-network
-non-commercial
-notebook computer
-Nvidia
-ogg file format for multimedia
-Open Site
-open source
-open source computer programs
-Opera web browser
-operating system
-page
-Perl
-personal computer (PC)
-Petabyte
-PDF
-peer to peer
-PGP
-PHP
-proprietary
-piracy
-pirate
-plug-in
-pop up
-printer
-privacy
-program
-program release
-Python
-QuickBasic
-QuickTime.
-Random_access_memory
-ReactOS
-Read-only_memory
-RedHat
-Reiser FS filesystem type
-root
-RSA
-Recycle Bin
-re boot
-scan
-search engine
-security
-server
-shared source
-shareware
-software
-spam
-spamming
-Spreadsheet
-spyware
-super computer
-super user
-Suse
-SDK
-SSD
-training for computers
-Trojan horse
-Terabyte
-Ubuntu
-undo
-UNIX
-update
-upload
-USB
-version
-virtual community
-Visual Studio
-Visual Basic
-virus
-Vulnerability
-Windows
-Xine
-XML
-Yahoo!
-Yotabyte
-ZIP
+Adobe 4
+Acrobat 4
+Address 4
+Algorithm 5
+AMD 4
+Android 4
+API 4
+Apple 3
+Applications 4
+Boot 4
+binary 4
+BIOS 4
+bitcoin 4
+byte 4
+Botnet 4
+Browser 4
+CPU 4
+Content Delivery Network 4
+Check Disk 4
+Cisco 4
+Cloud 4
+client 4
+CSS 4
+C++ 4
+C# 4
+Chrome 4
+Computer 4
+data 4
+database 4
+Debian 4
+desktop 4
+dialer 4
+digital 4
+document 4
+disk operating system 4
+download 4
+Electronic Numerical Integrator and Calculator 4
+electricity 4
+email 4
+email attachment 4
+Encarta encyclopedia 4
+Epiphany web browser 4
+End User License Agreement 4
+Explorer 4
+filesystem 4
+File allocation 4
+file 4
+file types by ending 4
+filesharing 4
+filesystem 4
+firewall 4
+folder 4
+footnotes 4
+format 4
+FreeBSD 4
+freeware 5
+Facebook 4
+gigabyte 4
+Gimp 4
+Gmail 4
+Gnome 4
+Google 4
+GNU 4
+GnuPG 4
+GPU 4
+Google Homehacker 4
+hard disk 4
+hardware 4
+Hash_function 4
+HDMI 4
+home page 4
+HTML 4
+HTTP 4
+HTTP_Cookie 4
+Intel 4
+Icons 4
+Input device 4
+Java 4
+JavaScript 4
+J# 4
+KDE* 4
+kernel 4
+keyboard 4
+key 4
+keyword 4
+laptop 4
+licensing examples for computer software 4
+link 3
+Linux 4
+Lavasoft 4
+live cd 4
+Macintosh 4
+Mac OS 4
+Mac OS X 4
+Malware 4
+Mandrake Linux 4
+Martus 4
+md5 4
+media 4
+megabyte 4
+Microsoft 4
+modified database 4
+modified IDE 4
+modified window 4
+monitor 4
+Motherboard 4
+mouse 4
+Mozilla web browser 4
+Mozilla Firefox web browser 4
+Modem 4
+mp4 4
+mpeg-4 4
+NTFS filesystem type 4
+Netscape 4
+Netscape Navigator web browser 4
+network 4
+non-commercial 3
+notebook computer 4
+Nvidia 4
+ogg file format for multimedia 4
+Open Site 4
+open source 4
+open source computer programs 4
+Opera web browser 4
+operating system 4
+page 4
+Perl 5
+personal computer (PC) 5
+Petabyte 4
+PDF 4
+peer to peer 4
+PGP 4
+PHP 4
+proprietary 4
+piracy 4
+pirate 4
+plug-in 4
+pop up 4
+printer 4
+privacy 4
+program 4
+program release 4
+Python 4
+QuickBasic 4
+QuickTime. 4
+Random_access_memory 4
+ReactOS 4
+Read-only_memory 4
+RedHat 4
+Reiser FS filesystem type 4
+root 4
+RSA 4
+Recycle Bin 4
+re boot 5
+scan 4
+search engine 4
+security 4
+server 4
+shared source 4
+shareware 4
+software 4
+spam 4
+spamming 4
+Spreadsheet 4
+spyware 4
+super computer 4
+super user 4
+Suse 4
+SDK 4
+SSD 4
+training for computers 4
+Trojan horse 4
+Terabyte 5
+Ubuntu 4
+undo 4
+UNIX 4
+update 4
+upload 4
+USB 4
+version 4
+virtual community 4
+Visual Studio 4
+Visual Basic 4
+virus 4
+Vulnerability 4
+Windows 4
+Xine 4
+XML 4
+Yahoo! 4
+Yotabyte 4
+ZIP 4
